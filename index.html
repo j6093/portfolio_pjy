@@ -36,7 +36,7 @@
   a{color:inherit;}
 
   /* hero: 사진 콜라주 배경 + 키네틱 타이포 */
-  .hero{position:relative; overflow:hidden; border-bottom:1px solid var(--border); min-height:460px; display:flex; flex-direction:column; justify-content:center;}
+  .hero{position:relative; overflow:hidden; border-bottom:1px solid var(--border); min-height:460px; display:flex; flex-direction:column; justify-content:center; background:radial-gradient(circle at center, #ffffff 0%, #cfd3da 35%, #55596a 65%, var(--bg) 100%);}
   .collage{position:absolute; inset:0; z-index:0;}
   .collage .tile{
     position:absolute; border-radius:10px; overflow:hidden; box-shadow:0 18px 40px rgba(0,0,0,.55);
@@ -57,7 +57,7 @@
   .portrait-text{
     position:absolute; left:50%; top:50%; z-index:0; white-space:nowrap;
     font-size:clamp(56px,12vw,170px); font-weight:800; letter-spacing:.01em;
-    background:linear-gradient(120deg,#ffffff 35%, var(--accent) 130%);
+    background:linear-gradient(120deg,#2a2f3a 35%, var(--accent) 130%);
     -webkit-background-clip:text; background-clip:text; color:transparent; opacity:.85;
     animation:driftX 11s ease-in-out infinite;
   }
@@ -75,7 +75,7 @@
   }
   @media (max-width:640px){ .portrait-text{opacity:.7;} }
 
-  .role-line{position:relative; z-index:2; margin:14px 0 0; font-size:16px; font-weight:600; color:#fff;}
+  .role-line{position:relative; z-index:2; margin:20px 0 0; font-size:16px; font-weight:600; color:#1a1d24;}
   .role-line .role{color:var(--accent); font-weight:800;}
 
   .contact-row{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:16px;}
@@ -201,7 +201,7 @@
 
 const PROFILE = {
   name: '박정연',
-  role: 'AI 영상크리에이터',  // 사진 아래에 "역할 / 이름" 형태로 표시됩니다
+  role: 'AI 영상크리에이터',  // 사진 아래에 "역할/이름" 형태로 표시됩니다
 
   // 히어로 정중앙에 크게 배치될 본인 사진입니다. 배경이 투명한 인물 사진(PNG/WebP)을 추천합니다.
   // 이미지 URL(예: 'https://example.com/me.png')을 넣거나, 지금처럼 data:image/... 형태로 직접 넣어도 됩니다.
@@ -213,9 +213,8 @@ const PROFILE = {
   heroPhotos: [],
 
   tools: ['Premiere Pro', 'After Effects', 'Cinema 4D'],  // 하단 스크롤 키워드 티커에 사용됩니다
-  email: '',
+  email: 'wjddus3856@naver.com',
   links: [                 // 필요 없는 항목은 지우거나 배열을 비워도 됩니다
-    { label: '☎ 010-4550-6144', url: 'tel:010-4550-6144' },
   ],
 };
 
@@ -252,13 +251,13 @@ const PROJECTS = [
     boardImages: [ph('콘티 컷1','11151b','3ddc84'), ph('콘티 컷2','11151b','3ddc84'), ph('콘티 컷3','11151b','3ddc84')],
   },
   {
-    title: '캐릭터 애니메이션 쇼릴',
+    title: '포트폴리오',
     category: 'Cinema 4D',
-    tool: 'Cinema 4D',
-    description: '오리지널 캐릭터 리깅과 워크사이클 애니메이션 데모.',
-    youtube: 'https://youtu.be/TLkA0RELQ1g',
-    planImages: [ph('캐릭터 기획안 1'), ph('캐릭터 기획안 2'), ph('캐릭터 기획안 3')],
-    boardImages: [ph('콘티 씬1','11151b','3ddc84'), ph('콘티 씬2','11151b','3ddc84')],
+    tool: 'Cinema 4D, After Effects',
+    description: 'Cinema 4D로 모델링과 애니메이션을 제작하고, After Effects로 합성·보정을 마무리한 3D 영상 포트폴리오입니다.',
+    youtube: 'https://youtu.be/4JeyFFPN-VY',
+    planImages: [],
+    boardImages: [],
   },
   {
     title: '인터랙티브 전시 프로토타입',
@@ -423,7 +422,8 @@ function openModal(idx){
   modalTab = availableTabs(p)[0];
   slideIdx = {plan:0, board:0};
   document.getElementById('modalTitle').textContent = p.title;
-  document.getElementById('modalMeta').textContent = `${p.category} · ${p.tool||''}`;
+  const toolList = (p.tool||'').split(',').map(t=>t.trim()).filter(t=>t && t !== p.category);
+  document.getElementById('modalMeta').textContent = toolList.length ? `${p.category} · ${toolList.join(', ')}` : p.category;
   renderModalTabs();
   renderModalContent();
   document.getElementById('modalBg').classList.add('open');
